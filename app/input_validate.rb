@@ -11,7 +11,7 @@ class InputValidate
 
     input_list.each_with_index do |input_data, index|
       if index == 2
-        if !['N', 'S', 'W', 'O'].include? input_data
+        if !['N', 'S', 'E', 'W'].include? input_data
          print "Wrong coordinate input, should be N, S, W or O! \n"
          exit
         end

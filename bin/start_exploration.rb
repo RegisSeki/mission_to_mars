@@ -1,7 +1,9 @@
 require_relative '../app/input_validate'
+require_relative '../app/pod_movement_calculator'
 require 'pry'
 
 input_valid = InputValidate.new
+pod_movement_calculator = PodMovementCalculator.new
 
 puts "\n"
 puts " WELCOME TO THE PROJECT MISSION TO MARS! \n\n My name is Yuki and i will help you on this journey! \n\n You will be the command!"
@@ -23,8 +25,11 @@ if answear === 'y'
   second_pod_initial_position = input_valid.valid_initial_position(gets.chomp)
   puts ' And now the commands. Example: LMRM:'
   second_pod_movements = input_valid.valid_movements(gets.chomp)
-  binding.pry
   puts 'Pods are all finished it moves and actual position is:'
+  result = []
+  result.push(pod_movement_calculator.execute(first_pod_initial_position, first_pod_movements))
+  result.push(pod_movement_calculator.execute(second_pod_initial_position, second_pod_movements))
+  print result
 else
   puts " Sorry, i think you are very busy doing something better! \n If you change your mind, see you later!"
 end
