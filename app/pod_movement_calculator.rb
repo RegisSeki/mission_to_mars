@@ -39,11 +39,15 @@ class PodMovementCalculator
   end
 
   def calculate(x, y, coord)
-    case coord
-    when 'N' then [x, ((y.to_i) + 1).to_s, coord]
-    when 'S' then [x, ((y.to_i) -1).to_s, coord]
-    when 'E' then [((x.to_i) + 1).to_s, y, coord]
-    else [((x.to_i) - 1).to_s, y, coord]
+    x = x.to_i
+    y = y.to_i
+    new_position = case coord
+    when 'N' then [x, (y + 1), coord]
+    when 'S' then [x, (y - 1), coord]
+    when 'E' then [(x + 1), y, coord]
+    else [(x - 1), y, coord]
     end
+
+    new_position.map(&:to_s)
   end
 end
