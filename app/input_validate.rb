@@ -1,64 +1,62 @@
 require 'pry'
 
 class InputValidate
-  def valid_initial_position(input)
-    input_list = input.split(' ')
-    if input_list.size != 3
-      # system('clear')
-      print "Wrong input! You sent #{input_list.size}, have to be 3 characteres. \n"
-      exit
+  def valid_initial_position(initial_position)
+    initial_position_array = initial_position.split(' ')
+
+    if initial_position_array.size != 3
+      output_message("Wrong input! You sent #{initial_position_array.size}, have to be 3 characteres.")
     end
 
-    input_list.each_with_index do |input_data, index|
+    initial_position_array.each_with_index do |value, index|
       if index == 2
-        if !['N', 'S', 'E', 'W'].include? input_data
-         print "Wrong coordinate input, should be N, S, W or O! \n"
-         exit
+        if !['N', 'S', 'E', 'W'].include? value
+         output_message("Wrong coordinate input, should be N, S, W or O!")
         end
       else
-        check_position(input_data, index)
+        valid_position(value, index)
       end
     end
-    input_list
   end
 
-  def valid_max_exploration_area(input)
-    input_list = input.split(' ')
+  def valid_max_exploration_area(max_exploration_area)
+    area_values = max_exploration_area.split(' ')
 
-    if input_list.size != 2
-      print "Wrong input! You sent #{input_list.size}, have to be 2 characteres. \n"
-      exit
+    if area_values.size != 2
+      output_message("Wrong input! You sent #{area_values.size}, have to be 2 characteres.")
     end
 
-    input_list.each_with_index do |input_data, index|
-      check_position(input_data, index)
+    area_values.each_with_index do |value, index|
+      valid_position(value, index)
     end
-    input_list
   end
 
-  def valid_movements(input)
-    input_list = input.split(//)
+  def valid_movements(pod_movement)
+    pod_movement_list = pod_movement.split(//)
 
-    input_list.each_with_index do |input_data, index|
-      if !['L', 'R', 'M'].include? input_data
-        print "Wrong movement input, should be L, R or M! \n"
-        exit
+    pod_movement_list.each_with_index do |movement, index|
+      if !['L', 'R', 'M'].include? movement
+        output_message("Wrong movement input, should be L, R or M!")
       end
     end
+  end
+
+  def output_message(message)
+    puts " #{message} \n"
+    exit
   end
 
   private
 
-  def check_position(position, index)
+  def valid_position(position, index)
     begin
       int_position = Integer(position)
     rescue
       if index == 0
-        print "Your first entry is wrong. Start the program again please! \n"
+        output_message("Your first entry is wrong!")
       else
-        print "Your second entry is wrong. Start the program again please! \n"
+        output_message("Your second entry is wrong!")
       end
-      exit
     end
   end
 end
