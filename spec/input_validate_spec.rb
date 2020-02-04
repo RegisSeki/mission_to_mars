@@ -1,4 +1,5 @@
 require_relative '../app/input_validate'
+require_relative '../app/output_message'
 require 'pry'
 
 RSpec.describe 'InputValidate' do
@@ -18,28 +19,28 @@ RSpec.describe 'InputValidate' do
     describe 'Fail' do
       context 'when input is less then 3 characters' do
         it 'return message for wrong input' do
-          expect(@subject).to receive(:output_message).with("Wrong input! You sent 2, have to be 3 characteres.")
+          expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with('Wrong input! You sent 2, have to be 3 characteres.')
           @subject.valid_initial_position('1 2')
         end
       end
 
       context 'when coordenate are not correct' do
         it 'return message showing the right coordinates' do
-          expect(@subject).to receive(:output_message).with("Wrong coordinate input, should be N, S, W or O!")
+          expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with("Wrong coordinate input, should be N, S, W or O!")
           @subject.valid_initial_position('1 2 R')
         end
       end
 
       context 'when first character of initial_position is invalid' do
         it 'return proper message' do
-          expect(@subject).to receive(:output_message).with("Your first entry is wrong!")
+          expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with("Your first entry is wrong!")
           @subject.valid_initial_position('A 2 N')
         end
       end
 
       context 'when second character of initial_position is invalid' do
         it 'return proper message' do
-          expect(@subject).to receive(:output_message).with("Your second entry is wrong!")
+          expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with("Your second entry is wrong!")
           @subject.valid_initial_position('1 A N')
         end
       end
@@ -58,21 +59,21 @@ RSpec.describe 'InputValidate' do
     describe 'fail' do
       context 'when input has less then 2 numbers' do
         it 'return proper message' do
-          expect(@subject).to receive(:output_message).with("Wrong input! You sent 1, have to be 2 characteres.")
+          expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with("Wrong input! You sent 1, have to be 2 characteres.")
           @subject.valid_max_exploration_area('5')
         end
       end
 
       context 'when first character of initial_position is invalid' do
         it 'return proper message' do
-          expect(@subject).to receive(:output_message).with("Your first entry is wrong!")
+          expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with("Your first entry is wrong!")
           @subject.valid_max_exploration_area('A 2')
         end
       end
 
       context 'when second character of initial_position is invalid' do
         it 'return proper message' do
-          expect(@subject).to receive(:output_message).with("Your second entry is wrong!")
+          expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with("Your second entry is wrong!")
           @subject.valid_max_exploration_area('1 A')
         end
       end
@@ -88,7 +89,7 @@ RSpec.describe 'InputValidate' do
 
     describe 'when pod movement list has not acceptable movement' do
       it 'return message' do
-        expect(@subject).to receive(:output_message).with("Wrong movement input, should be L, R or M!")
+        expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with("Wrong movement input, should be L, R or M!")
         @subject.valid_movements('A')
       end
     end

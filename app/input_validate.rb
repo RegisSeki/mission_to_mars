@@ -1,17 +1,20 @@
+require_relative '../app/output_message'
 require 'pry'
 
 class InputValidate
+  @@output_message = OutputMessage.new
+
   def valid_initial_position(initial_position)
     initial_position_array = initial_position.split(' ')
 
     if initial_position_array.size != 3
-      output_message("Wrong input! You sent #{initial_position_array.size}, have to be 3 characteres.")
+      @@output_message.send_message_exit("Wrong input! You sent #{initial_position_array.size}, have to be 3 characteres.")
     end
 
     initial_position_array.each_with_index do |value, index|
       if index == 2
         if !['N', 'S', 'E', 'W'].include? value
-         output_message("Wrong coordinate input, should be N, S, W or O!")
+         @@output_message.send_message_exit("Wrong coordinate input, should be N, S, W or O!")
         end
       else
         valid_position(value, index)
@@ -23,7 +26,7 @@ class InputValidate
     area_values = max_exploration_area.split(' ')
 
     if area_values.size != 2
-      output_message("Wrong input! You sent #{area_values.size}, have to be 2 characteres.")
+      @@output_message.send_message_exit("Wrong input! You sent #{area_values.size}, have to be 2 characteres.")
     end
 
     area_values.each_with_index do |value, index|
@@ -36,14 +39,9 @@ class InputValidate
 
     pod_movement_list.each_with_index do |movement, index|
       if !['L', 'R', 'M'].include? movement
-        output_message("Wrong movement input, should be L, R or M!")
+        @@output_message.send_message_exit("Wrong movement input, should be L, R or M!")
       end
     end
-  end
-
-  def output_message(message)
-    puts " #{message} \n"
-    exit
   end
 
   private
@@ -53,9 +51,9 @@ class InputValidate
       int_position = Integer(position)
     rescue
       if index == 0
-        output_message("Your first entry is wrong!")
+        @@output_message.send_message_exit("Your first entry is wrong!")
       else
-        output_message("Your second entry is wrong!")
+        @@output_message.send_message_exit("Your second entry is wrong!")
       end
     end
   end
