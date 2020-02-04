@@ -8,7 +8,7 @@ RSpec.describe 'PodMovementCalculator' do
     @y = '1'
   end
 
-  context '#execute' do
+  describe '#execute' do
     describe 'using correct initial_position input entrances' do
       it 'should return an array with end_position as 1 3 N' do
         result = @subject.execute(['1', '2', 'N'], ['L', 'M', 'L', 'M', 'L', 'M', 'L', 'M', 'M'])
@@ -22,58 +22,58 @@ RSpec.describe 'PodMovementCalculator' do
     end
   end
 
-  context '#change_coordenate' do
+  describe '#change_coordenate' do
     describe 'check all possible results' do
-      describe 'when actual coord is N and direction is L' do
+      context 'when actual coord is N and direction is L' do
         it 'returns coordenate W' do
           result = @subject.change_coordenate(@x, @y, 'N', 'L')
           expect(result).to eq [@x, @y, 'W']
         end
       end
 
-      describe 'when actual coord is N and direction is R' do
+      context 'when actual coord is N and direction is R' do
         it 'returns coordenate E' do
           result = @subject.change_coordenate(@x, @y, 'N', 'R')
           expect(result).to eq [@x, @y, 'E']
         end
       end
 
-      describe 'when actual coord is S and direction is L' do
+      context 'when actual coord is S and direction is L' do
         it 'returns coordenate E' do
           result = @subject.change_coordenate(@x, @y, 'S', 'L')
           expect(result).to eq [@x, @y, 'E']
         end
       end
 
-      describe 'when actual coord is S and direction is R' do
+      context 'when actual coord is S and direction is R' do
         it 'returns coordenate W' do
           result = @subject.change_coordenate(@x, @y, 'S', 'R')
           expect(result).to eq [@x, @y, 'W']
         end
       end
 
-      describe 'when actual coord is E and direction is L' do
+      context 'when actual coord is E and direction is L' do
         it 'returns coordenate N' do
           result = @subject.change_coordenate(@x, @y, 'E', 'L')
           expect(result).to eq [@x, @y, 'N']
         end
       end
 
-      describe 'when actual coord is E and direction is R' do
+      context 'when actual coord is E and direction is R' do
         it 'returns coordenate S' do
           result = @subject.change_coordenate(@x, @y, 'E', 'R')
           expect(result).to eq [@x, @y, 'S']
         end
       end
 
-      describe 'when actual coord is W and direction is L' do
+      context 'when actual coord is W and direction is L' do
         it 'returns coordenate S' do
           result = @subject.change_coordenate(@x, @y, 'W', 'L')
           expect(result).to eq [@x, @y, 'S']
         end
       end
 
-      describe 'when actual coord is W and direction is R' do
+      context 'when actual coord is W and direction is R' do
         it 'returns coordenate N' do
           result = @subject.change_coordenate(@x, @y, 'W', 'R')
           expect(result).to eq [@x, @y, 'N']
@@ -82,29 +82,29 @@ RSpec.describe 'PodMovementCalculator' do
     end
   end
 
-  context '#calculate' do
-    describe 'when coordenate is N' do
+  describe '#calculate' do
+    context 'when coordenate is N' do
       it 'return y + 1' do
         result = @subject.calculate(@x, @y, 'N')
         expect(result).to eq [@x, @y.to_i + 1, 'N'].map(&:to_s)
       end
     end
 
-    describe 'when coordenate is S' do
+    context 'when coordenate is S' do
       it 'return y - 1' do
         result = @subject.calculate(@x, @y, 'S')
         expect(result).to eq [@x, @y.to_i - 1, 'S'].map(&:to_s)
       end
     end
 
-    describe 'when coordenate is E' do
+    context 'when coordenate is E' do
       it 'return x + 1' do
         result = @subject.calculate(@x, @y, 'E')
         expect(result).to eq [@x.to_i + 1, @y, 'E'].map(&:to_s)
       end
     end
 
-    describe 'when coordenate is W' do
+    context 'when coordenate is W' do
       it 'return x - 1' do
         result = @subject.calculate(@x, @y, 'W')
         expect(result).to eq [@x.to_i - 1, @y, 'W'].map(&:to_s)
