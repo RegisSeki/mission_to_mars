@@ -19,7 +19,10 @@ class PodMovementCalculator
         map.push(new_map_entry)
       end
     end
-    map[movements.size]
+    {
+      end_position: map[movements.size],
+      scanned_map: map
+    }
   end
 
   def change_coordenate(x, y, coord, movement)

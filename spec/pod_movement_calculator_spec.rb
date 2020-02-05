@@ -12,12 +12,12 @@ RSpec.describe 'PodMovementCalculator' do
     describe 'using correct initial_position input entrances' do
       it 'should return an array with end_position as 1 3 N' do
         result = @subject.execute(['1', '2', 'N'], ['L', 'M', 'L', 'M', 'L', 'M', 'L', 'M', 'M'])
-        expect(result).to eq ['1', '3', 'N']
+        expect(result[:end_position]).to eq ['1', '3', 'N']
       end
 
       it 'should return an array with 5 1 E' do
         result = @subject.execute(['3', '3', 'E'], ['M', 'M', 'R', 'M', 'M', 'R', 'M', 'R', 'R', 'M'])
-        expect(result).to eq ['5', '1', 'E']
+        expect(result[:end_position]).to eq ['5', '1', 'E']
       end
     end
   end
