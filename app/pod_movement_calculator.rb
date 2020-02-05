@@ -64,7 +64,7 @@ class PodMovementCalculator
     max_y_axis = max_exploration_area[1].to_i
 
     if new_position[0] > max_x_axis || new_position[1] > max_y_axis
-      OutputMessage.new.send_message(
+      OutputMessage.new.send_message_exit(
         "The movements you sent will make the pod reach the maximum exploration area
         \n Change the maximum exploration area or change the pod movements!"
       )

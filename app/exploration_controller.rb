@@ -28,11 +28,11 @@ class ExplorationController
     )
     output_message.send_message(
       "Are you familiar with the program?
-      \n Answear (n) to have a guided exploration or (y) to start:\n↴"
+      \n Answear (N) to have a guided exploration or (Y) to start:\n↴"
     )
 
     answear = gets.chomp
-    if answear === 'n'
+    if answear === 'N'
       output_message.send_message_clear("Perfect! How can i call you:\n↴")
       nick_name = gets.chomp
       if nick_name == ''
@@ -99,15 +99,15 @@ class ExplorationController
       output_message.send_message("#{nick_name.capitalize}, Congratulations! Pods are all finished it moves and actual position is:")
       output_message.send_message("First pod are in #{first_pod_exploration_result[:end_position].join(' ')} and Second pod at #{second_pod_exploration_result[:end_position].join(' ')}")
 
-      output_message.send_message("Do you want see the explorated area? (y):\n↴")
+      output_message.send_message("Do you want see the explorated area? (Y):\n↴")
       answear_2 = gets.chomp
-      if answear_2 === 'y'
+      if answear_2 === 'Y' || answear_2 === 'y'
         show_map.build('First Pod', max_exploration_area[0], max_exploration_area[1], first_pod_exploration_result[:scanned_map])
         show_map.build('Second Pod', max_exploration_area[0], max_exploration_area[1], second_pod_exploration_result[:scanned_map])
       else
         output_message.send_message_clear("Ok, bye then! \n See you!")
       end
-    elsif answear === 'y'
+    elsif answear === 'Y' || answear === 'y'
       output_message.send_message('↴')
       max_exploration_area = input_valid.valid_max_exploration_area(gets.chomp).map(&:to_i)
       output_message.send_message('↴')
