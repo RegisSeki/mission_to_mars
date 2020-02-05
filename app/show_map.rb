@@ -1,47 +1,36 @@
 require 'pry'
+require_relative '../app/output_message'
 
 class ShowMap
-  def render(positions)
-    t = '□ '
-    f = '■ '
+  UNCOVERED = '□ '
+  UNDISCOVERED = '■ '
 
+  def build(positions)
     x_axis_max = 5
     y_axis_max = 5
 
-    x_ref = 0
-    y_ref = 0
-
     final_map = []
-    row = ''
 
     positions.map(&:pop)
 
-    x_axis_max.times do |x|
-      stop_y_axis = false
-      # binding.pry
-      y_axis_max.times do |y|
-        # binding.pry
-        if stop_y_axis
-          break
+    y_axis_max.times do |y|
+      row = ''
+      x_axis_max.times do |x|
+        if positions.include? [x.to_s, y.to_s]
+          row += UNCOVERED
         else
-          positions.uniq.each do |position|
-              # binding.pry
-            if [x.to_s, y.to_s] == position
-              # puts "#{position}"
-              row += t
-              # binding.pry
-              stop_y_axis = true
-              puts 'true'
-              break
-            end
-          end
+          row += UNDISCOVERED
         end
-        puts 'row'
-        row += f
       end
-      binding.pry
       final_map.push(row)
     end
-    puts "#{final_map}"
+    render(final_map)
+  end
+
+  def render(final_map)
+    output_message = OutputMessage.new
+    final_map.reverse.each do |row|
+      output_message.send_message(row)
+    end
   end
 end
