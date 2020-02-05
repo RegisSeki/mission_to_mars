@@ -1,5 +1,7 @@
+require 'pry'
+require_relative '../app/output_message'
 class PodMovementCalculator
-  def execute(initial_position, movements)
+  def execute(max_exploration_area, initial_position, movements)
     map = []
     map.push(initial_position)
     x = initial_position[0]
@@ -9,7 +11,7 @@ class PodMovementCalculator
 
     movements.each do |movement|
       if movement == 'M'
-        new_map_entry = calculate(x, y, coord)
+        new_map_entry = calculate(max_exploration_area, x, y, coord)
         x = new_map_entry[0]
         y = new_map_entry[1]
         map.push(new_map_entry)
@@ -41,9 +43,10 @@ class PodMovementCalculator
     [x, y, new_coord]
   end
 
-  def calculate(x, y, coord)
+  def calculate(max_exploration_area, x, y, coord)
     x = x.to_i
     y = y.to_i
+
     new_position = case coord
     when 'N' then [x, (y + 1), coord]
     when 'S' then [x, (y - 1), coord]
@@ -51,6 +54,22 @@ class PodMovementCalculator
     else [(x - 1), y, coord]
     end
 
+    possible_moviment?(max_exploration_area, new_position)
+
     new_position.map(&:to_s)
+  end
+
+  def possible_moviment?(max_exploration_area, new_position)
+    max_x_axis = max_exploration_area[0].to_i
+    max_y_axis = max_exploration_area[1].to_i
+
+    if new_position[0] > max_x_axis || new_position[1] > max_y_axis
+      OutputMessage.new.send_message(
+        "The movements you sent will make the pod reach the maximum exploration area
+        \n Change the maximum exploration area or change the pod movements!"
+      )
+    end
+
+    true
   end
 end

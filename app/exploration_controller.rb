@@ -92,8 +92,8 @@ class ExplorationController
       end
       second_pod_movements = input_valid.valid_movements(input_second_pod_movements)
 
-      first_pod_exploration_result = pod_movement_calculator.execute(first_pod_initial_position, first_pod_movements)
-      second_pod_exploration_result = pod_movement_calculator.execute(second_pod_initial_position, second_pod_movements)
+      first_pod_exploration_result = pod_movement_calculator.execute(max_exploration_area, first_pod_initial_position, first_pod_movements)
+      second_pod_exploration_result = pod_movement_calculator.execute(max_exploration_area, second_pod_initial_position, second_pod_movements)
       output_message.send_message_clear('')
 
       output_message.send_message("#{nick_name.capitalize}, Congratulations! Pods are all finished it moves and actual position is:")
@@ -119,8 +119,8 @@ class ExplorationController
       output_message.send_message('↴')
       second_pod_movements = input_valid.valid_movements(gets.chomp)
       output_message.send_message('↴')
-      first_pod_exploration_result = pod_movement_calculator.execute(first_pod_initial_position, first_pod_movements)
-      second_pod_exploration_result = pod_movement_calculator.execute(second_pod_initial_position, second_pod_movements)
+      first_pod_exploration_result = pod_movement_calculator.execute(max_exploration_area, first_pod_initial_position, first_pod_movements)
+      second_pod_exploration_result = pod_movement_calculator.execute(max_exploration_area, second_pod_initial_position, second_pod_movements)
       output_message.send_message(first_pod_exploration_result[:end_position].join(' '))
       output_message.send_message(second_pod_exploration_result[:end_position].join(' '))
       show_map.build('First Pod', max_exploration_area[0], max_exploration_area[1], first_pod_exploration_result[:scanned_map])
