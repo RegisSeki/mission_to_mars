@@ -22,8 +22,8 @@ RSpec.describe 'ShowMap' do
         ["1", "3", "N"]
       ]
 
-      expect(@subject).to receive(:render).with(@expected_result)
-      @subject.build(positions)
+      expect(@subject).to receive(:render).with('subject_name', @expected_result)
+      @subject.build('subject_name', 5, 5, positions)
     end
   end
 end
