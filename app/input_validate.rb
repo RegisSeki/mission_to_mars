@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../app/output_message'
 
 class InputValidate
@@ -12,8 +14,8 @@ class InputValidate
 
     initial_position_array.each_with_index do |value, index|
       if index == 2
-        if !['N', 'S', 'E', 'W'].include? value
-         @@output_message.send_message_exit("Wrong coordinate input, should be N, S, W or O!")
+        unless %w[N S E W].include? value
+          @@output_message.send_message_exit('Wrong coordinate input, should be N, S, W or O!')
         end
       else
         valid_position(value, index)
@@ -36,9 +38,9 @@ class InputValidate
   def valid_movements(pod_movement)
     pod_movement_list = pod_movement.split(//)
 
-    pod_movement_list.each_with_index do |movement, index|
-      if !['L', 'R', 'M'].include? movement
-        @@output_message.send_message_exit("Wrong movement input, should be L, R or M!")
+    pod_movement_list.each_with_index do |movement, _index|
+      unless %w[L R M].include? movement
+        @@output_message.send_message_exit('Wrong movement input, should be L, R or M!')
       end
     end
   end
@@ -46,14 +48,12 @@ class InputValidate
   private
 
   def valid_position(position, index)
-    begin
-      int_position = Integer(position)
-    rescue
-      if index == 0
-        @@output_message.send_message_exit("Your first entry is wrong!")
-      else
-        @@output_message.send_message_exit("Your second entry is wrong!")
-      end
+    int_position = Integer(position)
+  rescue StandardError
+    if index == 0
+      @@output_message.send_message_exit('Your first entry is wrong!')
+    else
+      @@output_message.send_message_exit('Your second entry is wrong!')
     end
   end
 end

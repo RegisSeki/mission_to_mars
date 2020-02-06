@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../app/input_validate'
 require_relative '../app/show_map'
 require_relative '../app/output_message'
@@ -11,7 +13,7 @@ class ExplorationController
       first_pod_initial_position: '1 2 N',
       first_pod_movements: 'LMLMLMLMM',
       second_pod_initial_position: '3 3 E',
-      second_pod_movements: 'MMRMMRMRRM',
+      second_pod_movements: 'MMRMMRMRRM'
     }
 
     input_valid = InputValidate.new
@@ -31,25 +33,23 @@ class ExplorationController
     )
 
     answear = gets.chomp
-    if answear === 'N'
+    if answear === 'N' || answear === 'n'
       output_message.send_message_clear("Perfect! How can i call you:\n↴")
       nick_name = gets.chomp
-      if nick_name == ''
-        nick_name = example[:nick_name]
-      end
+      nick_name = example[:nick_name] if nick_name == ''
 
       output_message.send_message_clear("Hello #{nick_name.capitalize}, nice to have you here.\n")
       output_message.send_message(
         "Our mission is to explore Mars area, to do this you need to give me the max lenght of the area that we gonna explore now!\n"
       )
-      output_message.send_message("I will help you if you do not want type anything. In this case just press ↲ (enter) and it will fill with example values")
+      output_message.send_message('I will help you if you do not want type anything. In this case just press ↲ (enter) and it will fill with example values')
 
       output_message.send_message("Give me the max size with 2 numbers separeted with space. For example: #{example[:max_exploration_area]}:\n ↴")
       input_max_exploration_area = gets.chomp
       if input_max_exploration_area == ''
         input_max_exploration_area = example[:max_exploration_area]
       end
-      max_exploration_area = (input_valid.valid_max_exploration_area(input_max_exploration_area)).map(&:to_i)
+      max_exploration_area = input_valid.valid_max_exploration_area(input_max_exploration_area).map(&:to_i)
 
       output_message.send_message_clear(
         "Good! Now let's deploy the first pod.
