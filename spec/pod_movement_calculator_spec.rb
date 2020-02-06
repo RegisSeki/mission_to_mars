@@ -1,6 +1,5 @@
 require_relative '../app/output_message'
 require_relative '../app/pod_movement_calculator'
-require 'pry'
 
 RSpec.describe 'PodMovementCalculator' do
   before(:each) do
@@ -10,7 +9,7 @@ RSpec.describe 'PodMovementCalculator' do
   end
 
   describe '#execute' do
-    describe 'using correct initial_position input entrances' do
+    context 'using correct initial_position input entrances' do
       it 'should return an array with end_position as 1 3 N' do
         result = @subject.execute([@x, @y], ['1', '2', 'N'], ['L', 'M', 'L', 'M', 'L', 'M', 'L', 'M', 'M'])
         expect(result[:end_position]).to eq ['1', '3', 'N']
@@ -24,7 +23,7 @@ RSpec.describe 'PodMovementCalculator' do
   end
 
   describe '#change_coordenate' do
-    describe 'check all possible results' do
+    context 'check all possible results' do
       context 'when actual coord is N and direction is L' do
         it 'returns coordenate W' do
           result = @subject.change_coordenate(@x, @y, 'N', 'L')
@@ -122,7 +121,7 @@ RSpec.describe 'PodMovementCalculator' do
     context 'when new position is greater than max exploration area' do
       it 'return message' do
         @y = '5'
-        expect_any_instance_of(OutputMessage).to receive(:send_message).with("The movements you sent will make the pod reach the maximum exploration area\n        \n Change the maximum exploration area or change the pod movements!")
+        expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with("The movements you sent will make the pod reach the maximum exploration area\n        \n Change the maximum exploration area or change the pod movements!")
         @subject.calculate([@max_x_axis, @max_y_axis], @x, @y, 'N')
       end
     end

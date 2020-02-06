@@ -1,5 +1,4 @@
 require_relative '../app/output_message'
-require 'pry'
 
 class InputValidate
   @@output_message = OutputMessage.new

@@ -1,5 +1,5 @@
-require 'pry'
 require_relative '../app/output_message'
+
 class PodMovementCalculator
   def execute(max_exploration_area, initial_position, movements)
     map = []

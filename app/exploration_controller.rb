@@ -5,7 +5,6 @@ require_relative '../app/pod_movement_calculator'
 
 class ExplorationController
   def initialize
-
     example = {
       nick_name: 'Spock',
       max_exploration_area: '5 5',

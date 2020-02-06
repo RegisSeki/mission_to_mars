@@ -1,4 +1,3 @@
-require 'pry'
 require_relative '../app/output_message'
 
 class ShowMap
