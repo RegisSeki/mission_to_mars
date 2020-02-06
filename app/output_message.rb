@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OutputMessage
   def send_message(message)
     puts " #{message} \n"
@@ -9,7 +11,7 @@ class OutputMessage
   end
 
   def send_message_clear(message)
-    system("clear")
+    system('clear')
     puts " #{message} \n"
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../app/output_message'
 require_relative '../app/pod_movement_calculator'
 
@@ -11,13 +13,13 @@ RSpec.describe 'PodMovementCalculator' do
   describe '#execute' do
     context 'using correct initial_position input entrances' do
       it 'should return an array with end_position as 1 3 N' do
-        result = @subject.execute([@x, @y], ['1', '2', 'N'], ['L', 'M', 'L', 'M', 'L', 'M', 'L', 'M', 'M'])
-        expect(result[:end_position]).to eq ['1', '3', 'N']
+        result = @subject.execute([@x, @y], %w[1 2 N], %w[L M L M L M L M M])
+        expect(result[:end_position]).to eq %w[1 3 N]
       end
 
       it 'should return an array with 5 1 E' do
-        result = @subject.execute([@x, @y], ['3', '3', 'E'], ['M', 'M', 'R', 'M', 'M', 'R', 'M', 'R', 'R', 'M'])
-        expect(result[:end_position]).to eq ['5', '1', 'E']
+        result = @subject.execute([@x, @y], %w[3 3 E], %w[M M R M M R M R R M])
+        expect(result[:end_position]).to eq %w[5 1 E]
       end
     end
   end

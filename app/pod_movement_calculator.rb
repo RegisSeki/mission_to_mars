@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../app/output_message'
 
 class PodMovementCalculator
@@ -29,15 +31,15 @@ class PodMovementCalculator
 
   def change_coordenate(x, y, coord, movement)
     new_coord = case [coord, movement]
-    when ["N", "L"] then "W"
-    when ["N", "R"] then "E"
-    when ["S", "L"] then "E"
-    when ["S", "R"] then "W"
-    when ["E", "L"] then "N"
-    when ["E", "R"] then "S"
-    when ["W", "L"] then "S"
-    else
-      "N"
+                when %w[N L] then 'W'
+                when %w[N R] then 'E'
+                when %w[S L] then 'E'
+                when %w[S R] then 'W'
+                when %w[E L] then 'N'
+                when %w[E R] then 'S'
+                when %w[W L] then 'S'
+                else
+                  'N'
     end
 
     [x, y, new_coord]
@@ -48,10 +50,10 @@ class PodMovementCalculator
     y = y.to_i
 
     new_position = case coord
-    when 'N' then [x, (y + 1), coord]
-    when 'S' then [x, (y - 1), coord]
-    when 'E' then [(x + 1), y, coord]
-    else [(x - 1), y, coord]
+                   when 'N' then [x, (y + 1), coord]
+                   when 'S' then [x, (y - 1), coord]
+                   when 'E' then [(x + 1), y, coord]
+                   else [(x - 1), y, coord]
     end
 
     possible_moviment?(max_exploration_area, new_position)

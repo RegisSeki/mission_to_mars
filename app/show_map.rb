@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../app/output_message'
 
 class ShowMap
@@ -15,11 +17,11 @@ class ShowMap
     y_axis_max.times do |y|
       row = ''
       x_axis_max.times do |x|
-        if positions.include? [x.to_s, y.to_s]
-          row += UNCOVERED
-        else
-          row += UNDISCOVERED
-        end
+        row += if positions.include? [x.to_s, y.to_s]
+                 UNCOVERED
+               else
+                 UNDISCOVERED
+               end
       end
       final_map.push(row)
     end
