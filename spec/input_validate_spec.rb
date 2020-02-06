@@ -27,7 +27,7 @@ RSpec.describe 'InputValidate' do
 
       context 'when coordenate are not correct' do
         it 'return message showing the right coordinates' do
-          expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with('Wrong coordinate input, should be N, S, W or O!')
+          expect_any_instance_of(OutputMessage).to receive(:send_message_exit).with('Wrong coordinate input, should be N, S, E or W!')
           @subject.valid_initial_position('1 2 R')
         end
       end

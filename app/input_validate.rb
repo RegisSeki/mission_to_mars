@@ -15,7 +15,7 @@ class InputValidate
     initial_position_array.each_with_index do |value, index|
       if index == 2
         unless %w[N S E W].include? value
-          @@output_message.send_message_exit('Wrong coordinate input, should be N, S, W or O!')
+          @@output_message.send_message_exit('Wrong coordinate input, should be N, S, E or W!')
         end
       else
         valid_position(value, index)
