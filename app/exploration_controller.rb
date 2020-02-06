@@ -55,7 +55,7 @@ class ExplorationController
         "Good! Now let's deploy the first pod.
         \n Tell me the first pod initial location, please.
         \n Should be 3 characters, first the x position, second the y position
-        \n and the cardinal coordenate as N from North, S from South, O for Oest and W for West.
+        \n and the cardinal coordenate as N from North, S from South, E for East and W for West.
         \n For example: #{example[:first_pod_initial_position]}:\n↴"
       )
       input_first_pod_initial_position = gets.chomp
